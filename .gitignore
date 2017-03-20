@@ -1,8 +1,10 @@
 /target/
-
+/.idea/
+/out/
 /.settings/
 .classpath
 .project
+.idea/workspace.xml
 .settings/.jsdtscope
 .settings/org.eclipse.core.resources.prefs
 .settings/org.eclipse.jdt.core.prefs
@@ -14,5 +16,3 @@
 .settings/org.eclipse.wst.validation.prefs
 /bin/
 
-.metadata/
-.recommenders/
