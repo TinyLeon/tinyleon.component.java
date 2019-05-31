@@ -55,14 +55,14 @@
     <build>
         <finalName>tinyleon.component</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <!-- 解决sevlet3.0，删除web.xml编译报错问题 -->
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-war-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; 解决sevlet3.0，删除web.xml编译报错问题 &ndash;&gt;-->
+<!--                    <failOnMissingWebXml>false</failOnMissingWebXml>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <plugin>
                 <!-- maven是个项目管理工具，如果我们不告诉它我们的代码要使用什么样的jdk版本编译的话， 它就会用maven-compiler-plugin默认的jdk版本来进行处理，这样就容易出现版本不匹配的问题，
