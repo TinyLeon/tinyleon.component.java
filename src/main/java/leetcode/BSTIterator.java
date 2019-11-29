@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-import Algorithm.TreeTest.TreeNode;
+import leetcode.TreeTest.TreeNode;
 
 /**
  * description

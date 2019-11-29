@@ -71,7 +71,7 @@ public class Test {
 //        System.out.println(groupAnagrams(array));
 //        System.out.println(lengthOfLastWord("hello world   "));
 //        System.out.println(generateMatrix(3));
-        System.out.println(getPermutation(9, 54494));
+//        System.out.println(getPermutation(9, 54494));
 //        System.out.println(simplifyPath("/a/./b/../../c/"));
 //        int[][] array = new int[][]{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
 //        setZeroes(array);
@@ -130,11 +130,316 @@ public class Test {
 //        System.out.println(fractionToDecimal(20, 7));
 
 //        System.out.println(hammingWeight(3));
-        System.out.println(minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3}));
-
-        String[] fields = StringUtils.split("^tab选中：国内酒店^是否有经纬度进行周边搜索:是^街道地址:工业园区^当前城市:苏州^当前城市id:1102^商圈id:^商圈类型id:^入店日期:2019-05-20^离店日期:2019-05-21^关键词:^价格:[]^星级:[]", "^");
-        System.out.println(fields[6]);
+//        System.out.println(minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3}));
+//
+//        String[] fields = StringUtils.split("^tab选中：国内酒店^是否有经纬度进行周边搜索:是^街道地址:工业园区^当前城市:苏州^当前城市id:1102^商圈id:^商圈类型id:^入店日期:2019-05-20^离店日期:2019-05-21^关键词:^价格:[]^星级:[]", "^");
+//        System.out.println(fields[6]);
+//        System.out.println(Integer.MAX_VALUE+2);
+//        System.out.println(Integer.MIN_VALUE-1);
+//          maximalSquare(new char[][] {
+//              {'1','1','1'},
+//              {'1','0','1'},
+//              {'1','1','1'}
+//          });
+//        System.out.println(calculate(" 3+2*2 "));
+//        int[] nums = new int[]{0,2,3,4,6,8,9};
+//        System.out.println(summaryRanges(nums));
+//        System.out.println(countDigitOne(13));
+        ListNode listNode = new ListNode(1);
+        listNode.next = new ListNode(2);
+        listNode.next.next = new ListNode(3);
+        listNode.next.next.next = new ListNode(4);
+        listNode.next.next.next.next = new ListNode(5);
+        System.out.println(oddEvenList((listNode)));
     }
+
+    /**
+     * 240. 搜索二维矩阵 II
+     *
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0) {
+            return false;
+        }
+        int i = 0, j = matrix[0].length;
+        while (i < matrix.length && j >= 0) {
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] > target) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns a random node's value. leetcode 382
+     */
+    public int getRandom(ListNode head) {
+        return 0;
+    }
+
+    /**
+     * 奇偶链表 leetcode 328
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode oddEvenList(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode oddList = head;
+        ListNode evenList = head.next;
+        ListNode evenHead = evenList;
+        while (oddList != null && evenList != null && evenList.next != null) {
+            oddList.next = evenList.next;
+            evenList.next = evenList.next.next;
+            oddList = oddList.next;
+            evenList = evenList.next;
+        }
+        oddList.next = evenHead;
+        return head;
+    }
+
+    /**
+     * 数字1的个数，计算所有小于n的非负整数中出现1的个数
+     *
+     * @param n
+     * @return
+     */
+    public static int countDigitOne(int n) {
+        int rsp = 0;
+        if (n < 1) {
+            return rsp;
+        }
+        int begin = 1;
+        while (begin <= n) {
+            int num = begin;
+            while (num > 0) {
+                if ((num % 10) == 1) {
+                    rsp++;
+                }
+                num /= 10;
+            }
+            begin++;
+        }
+        return rsp;
+    }
+
+    /**
+     * 求出出现次数大于N/3的数字  摩尔投票法 leetcode 229
+     *
+     * @param nums
+     * @return
+     */
+    public List<Integer> majorityElement2(int[] nums) {
+        List<Integer> rsp = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return rsp;
+        }
+        int x = 0, y = 0, cx = 0, cy = 0;
+        for (int num : nums) {
+            if ((cx == 0 || x == num) && num != y) {
+                x = num;
+                cx++;
+            } else if (cy == 0 || y == num) {
+                y = num;
+                cy++;
+            } else {
+                cx--;
+                cy--;
+            }
+        }
+        cx = 0;
+        cy = 0;
+        for (int temp : nums) {
+            if (x == temp) {
+                cx++;
+            } else if (y == temp) {
+                cy++;
+            }
+        }
+        if (cx > nums.length / 3) {
+            rsp.add(x);
+        }
+        if (cy > nums.length / 3) {
+            rsp.add(y);
+        }
+        return rsp;
+    }
+
+    /**
+     * 汇总区间
+     *
+     * @param nums
+     * @return
+     */
+    public static List<String> summaryRanges(int[] nums) {
+        List<String> rsp = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return rsp;
+        }
+        if (nums.length == 1) {
+            rsp.add(String.valueOf(nums[0]));
+            return rsp;
+        }
+        int begin = nums[0];
+        int end = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == end + 1) {
+                end = nums[i];
+                if (i == nums.length - 1) {
+                    rsp.add(begin + "->" + end);
+                }
+            } else {
+                if (begin == end) {
+                    rsp.add(String.valueOf(begin));
+                } else {
+                    rsp.add(begin + "->" + end);
+                }
+                begin = nums[i];
+                end = nums[i];
+                if (i == nums.length - 1) {
+                    rsp.add(String.valueOf(begin));
+                }
+            }
+        }
+        return rsp;
+    }
+
+    /**
+     * int res = 0, d = 0;
+     * char sign = '+';
+     * stack<int> nums;
+     * for (int i = 0; i < s.size(); ++i) {
+     * if (s[i] >= '0') {//加减乘除和空格ASCII码都小于'0'
+     * d = d * 10 - '0' + s[i];//进位(先减法)
+     * }
+     * if ((s[i] < '0' && s[i] != ' ') || i == s.size() - 1) {
+     * if (sign == '+') {
+     * nums.push(d);
+     * } else if (sign == '-') {
+     * nums.push(-d);
+     * } else if (sign == '*' || sign == '/') {
+     * int tmp = sign == '*' ? nums.top() * d : nums.top() / d;
+     * nums.pop();
+     * nums.push(tmp);
+     * }
+     * sign = s[i]; //保存当前符号
+     * d = 0;
+     * }
+     * }
+     * for (; !nums.empty(); nums.pop()) {
+     * res += nums.top();
+     * }
+     * return res;
+     *
+     * @param s
+     * @return
+     */
+    public static int calculate(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int num = 0;
+        char sign = '+';
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c >= '0') {
+                num = num * 10 + c - '0';
+            }
+            //在碰到下一个符号、或者最后一位时，数字才停止，并与上一个符号进行运算
+            if ((c < '0' && c != ' ') || i == s.length() - 1) {
+                if (sign == '+') {
+                    stack.push(num);
+                } else if (sign == '-') {
+                    stack.push(-num);
+                } else {
+                    stack.push(sign == '*' ? num * stack.pop() : stack.pop() / num);
+                }
+                sign = c;
+                num = 0;
+            }
+        }
+        int rsp = 0;
+        while (!stack.isEmpty()) {
+            rsp += stack.pop();
+        }
+        return rsp;
+    }
+
+    /**
+     * leetcode 221 矩阵最大正方形
+     *
+     * @param matrix
+     * @return
+     */
+    private static int maximalSquare(char[][] matrix) {
+        /**
+         dp[i][j]表示以第i行第j列为右下角所能构成的最大正方形边长, 则递推式为:
+         dp[i][j] = 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]);
+         **/
+        int m = matrix.length;
+        if (m < 1) return 0;
+        int n = matrix[0].length;
+        int max = 0;
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                if (matrix[i - 1][j - 1] == '1') {
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]));
+                    max = Math.max(max, dp[i][j]);
+                }
+            }
+        }
+
+        return max * max;
+    }
+
+    // Get the ID of the bucket from element value x and bucket width w
+    // In Java, `-3 / 5 = 0` and but we need `-3 / 5 = -1`.
+    //原因在于，正数情况下，会有0-t的数字在桶0里，负数也会有类似的情况，所以要把负数的桶-1
+    private long getID(long x, long w) {
+        return x < 0 ? (x + 1) / w - 1 : x / w;
+    }
+
+    /**
+     * leetCode 220 存在重复元素 III
+     *
+     * @param nums
+     * @param k
+     * @param t
+     * @return
+     */
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        if (t < 0) return false;
+        Map<Long, Long> d = new HashMap<>();
+        long w = (long) t + 1;
+        for (int i = 0; i < nums.length; ++i) {
+            long m = getID(nums[i], w);
+            // check if bucket m is empty, each bucket may contain at most one element
+            if (d.containsKey(m))
+                return true;
+            // check the nei***or buckets for almost duplicate
+            if (d.containsKey(m - 1) && Math.abs(nums[i] - d.get(m - 1)) < w)
+                return true;
+            if (d.containsKey(m + 1) && Math.abs(nums[i] - d.get(m + 1)) < w)
+                return true;
+            // now bucket m is empty and no almost duplicate in nei***or buckets
+            d.put(m, (long) nums[i]);
+            if (i >= k) d.remove(getID(nums[i - k], w));
+        }
+        return false;
+    }
+
 
     /**
      * 合并区间
@@ -2835,7 +3140,7 @@ public class Test {
     }
 
     /**
-     * 旋转链表
+     * 旋转链表 leetcode 61
      *
      * @param head
      * @param k

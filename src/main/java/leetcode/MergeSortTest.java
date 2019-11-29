@@ -1,6 +1,6 @@
 package leetcode;
 
-import Algorithm.Test.ListNode;
+import leetcode.Test.ListNode;
 /**
  * description
  *

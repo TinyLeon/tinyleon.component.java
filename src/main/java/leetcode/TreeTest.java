@@ -2,8 +2,7 @@ package leetcode;
 
 import java.util.*;
 
-import Algorithm.Test.ListNode;
-import sun.reflect.generics.tree.Tree;
+import leetcode.Test.ListNode;
 
 /**
  * description
@@ -14,12 +13,12 @@ import sun.reflect.generics.tree.Tree;
 public class TreeTest {
 
     public static void main(String[] args) {
-//        TreeNode treeNode = new TreeNode(1);
-//        treeNode.left = new TreeNode(2);
-//        treeNode.right = new TreeNode(3);
-//        treeNode.left.left = new TreeNode(4);
-//        treeNode.left.right = new TreeNode(5);
-//        treeNode.right.right = new TreeNode(6);
+        TreeNode treeNode = new TreeNode(1);
+        treeNode.left = new TreeNode(2);
+        treeNode.right = new TreeNode(3);
+        treeNode.left.left = new TreeNode(4);
+        treeNode.left.right = new TreeNode(5);
+        treeNode.right.right = new TreeNode(6);
 //        treeNode = treeNode.right;
 //        treeNode.left = new TreeNode(3);
 //        treeNode.right = new TreeNode(5);
@@ -41,7 +40,7 @@ public class TreeTest {
 //        System.out.println(buildTree(preArray, inArray));
 //        flatten(treeNode);
 //        sumNumbers(treeNode);
-//        System.out.println(lowestCommonAncestor(treeNode, treeNode.left.left, treeNode.left.right).val);
+        System.out.println(lowestCommonAncestor(treeNode, treeNode.left.left, treeNode.left.right).val);
 //        Node1 node1 = new Node1(1, null, null);
 //        Node1 node2 = new Node1(2, null, null);
 //        node2.random = node2;
@@ -60,12 +59,39 @@ public class TreeTest {
 //        wordDict.add("aaaaaaaaa");
 //        wordDict.add("aaaaaaaaaa");
 //        System.out.println((wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", wordDict)));
-        ListNode l1 = new ListNode(-10);
-        l1.next = new ListNode(3);
-        l1.next.next = new ListNode(0);
-        l1.next.next.next = new ListNode(5);
-        l1.next.next.next.next = new ListNode(9);
-        sortedListToBST(l1);
+//        ListNode l1 = new ListNode(-10);
+//        l1.next = new ListNode(3);
+//        l1.next.next = new ListNode(0);
+//        l1.next.next.next = new ListNode(5);
+//        l1.next.next.next.next = new ListNode(9);
+//        sortedListToBST(l1);
+    }
+
+    /**
+     * 二叉搜索树中第k小的元素 leetcode 230
+     * @param root
+     * @param k
+     * @return
+     */
+    public int kthSmallest(TreeNode root, int k) {
+        //前序遍历 获取第k-1个元素 比如用栈遍历二叉树
+        int i=0;
+        Stack<TreeNode> stack =new Stack<>();
+        TreeNode node = root;
+        while (node!=null ||!stack.isEmpty()){
+            if(node!=null){
+                stack.push(root);
+                node = node.left;
+            }else {
+                node = stack.pop();
+                i++;
+                if(i==k){
+                    return node.val;
+                }
+                node = node.right;
+            }
+        }
+        return 0;
     }
 
     /**
