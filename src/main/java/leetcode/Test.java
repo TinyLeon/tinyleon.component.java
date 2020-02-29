@@ -145,12 +145,125 @@ public class Test {
 //        int[] nums = new int[]{0,2,3,4,6,8,9};
 //        System.out.println(summaryRanges(nums));
 //        System.out.println(countDigitOne(13));
-        ListNode listNode = new ListNode(1);
-        listNode.next = new ListNode(2);
-        listNode.next.next = new ListNode(3);
-        listNode.next.next.next = new ListNode(4);
-        listNode.next.next.next.next = new ListNode(5);
-        System.out.println(oddEvenList((listNode)));
+//        ListNode listNode = new ListNode(1);
+//        listNode.next = new ListNode(2);
+//        listNode.next.next = new ListNode(3);
+//        listNode.next.next.next = new ListNode(4);
+//        listNode.next.next.next.next = new ListNode(5);
+//        System.out.println(oddEvenList((listNode)));
+//        nthUglyNumber(2);
+//        int[] array = new int[]{0, 0,4,4};
+//        hIndex2(array);
+        firstBadVersion(2126753390);
+    }
+
+    /**
+     * leetcode 278 第一个错误版本
+     * @param n
+     * @return
+     */
+    public static int firstBadVersion(int n) {
+        //典型的二分查找
+        int l=1, r= n;
+        while(l<r){
+            int mid = (int)((long)l+r)>>1;
+            if(isBadVersion(mid)){
+                r = mid;
+            }else{
+                l = mid+1;
+            }
+        }
+        return l;
+    }
+
+    private static boolean isBadVersion(int n){
+        return n >= 1702766719;
+    }
+
+    /**
+     * H指数 leetcode 275
+     * @param citations
+     * @return
+     */
+    public static int hIndex2(int[] citations) {
+        //看到对数就想到二分
+        int l = 0, r = citations.length-1;
+        if (citations.length == 0 || citations[citations.length - 1] == 0) {
+            return 0;
+        }
+        while(l < r){
+            int mid = (l + r)>>1;
+            int h = citations.length - mid;
+            if(h > citations[mid]){
+                l = mid + 1;
+            }else{
+                r = mid;
+            }
+        }
+        return citations.length-l;
+    }
+
+    /**
+     * H指数 leetcode 274
+     * @param citations
+     * @return
+     */
+    public static int hIndex(int[] citations) {
+        if(citations==null || citations.length==0)
+            return 0;
+        Arrays.sort(citations);
+        int res=0, count =1;
+        TreeMap<Integer,Integer> map= new TreeMap<>();
+        for(int i= citations.length-1; i>=0; i--){
+            if(map.containsKey(citations[i])){
+                map.put(citations[i], map.get(citations[i])+1);
+            }else{
+                map.put(citations[i], count);
+            }
+            count++;
+        }
+        for(int key: map.keySet()){
+            if(key>=map.get(key)) {
+                res = map.get(key);
+                break;
+            }
+        }
+        if(map.lastKey()<map.get(map.lastKey())){
+            res=map.lastKey();
+        }
+        return res;
+    }
+
+    /**
+     * 丑数2  leetcode 264
+     * @param n
+     * @return
+     */
+    public static int nthUglyNumber(int n) {
+        //java三指针
+        int[] res= new int[n];
+        res[0] = 1;
+        int idx2=0, idx3=0, idx5=0;
+        for(int i=1; i<n; i++){
+            res[i] = Math.min(res[idx2], Math.min(res[idx3], res[idx5]));
+            if(res[i]==res[idx2]*2)
+                idx2++;
+            if(res[i]==res[idx3]*3)
+                idx3++;
+            if(res[i]==res[idx5]*5)
+                idx5++;
+        }
+        return res[n-1];
+    }
+
+    /**
+     * 241 为运算表达式设计优先级
+     * @param input
+     * @return
+     */
+    public List<Integer> diffWaysToCompute(String input) {
+        List<Integer> rsp = new ArrayList<>();
+        return null;
     }
 
     /**
