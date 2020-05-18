@@ -154,7 +154,25 @@ public class Test {
 //        nthUglyNumber(2);
 //        int[] array = new int[]{0, 0,4,4};
 //        hIndex2(array);
-        firstBadVersion(2126753390);
+//        firstBadVersion(2126753390);
+        String s = "Let's  join bytedance  ";
+//        String[] array = StringUtils.split(s);
+//        String[] array = s.split(" ");
+        System.out.println(reverseWords(s));
+    }
+
+    public static String reverseWords(String s){
+        String[] strArr = s.split(" ");
+        int len = strArr.length;
+        StringBuilder sb = new StringBuilder();
+        for (int i = len -1; i >= 0; i--) {
+            if (strArr[i].equals("")) {
+                sb.append(" ");
+            } else {
+                sb.append(strArr[i]);
+            }
+        }
+        return sb.toString();
     }
 
     /**
@@ -3107,24 +3125,24 @@ public class Test {
         return totalCost;
     }
 
-    public static String reverseWords(String s) {
-        //这题其实更简单点 直接split
-        String[] array = s.split(" ");
-        StringBuilder sb = new StringBuilder();
-        for (int i = array.length - 1; i >= 0; i--) {
-            if ("".equals(array[i])) {
-                continue;
-            }
-            sb.append(array[i].trim());
-            if (i > 0) {
-                sb.append(" ");
-            }
-        }
-        while (sb.length() > 0 && sb.charAt(sb.length() - 1) == ' ') {
-            sb.deleteCharAt(sb.length() - 1);
-        }
-        return sb.toString();
-    }
+//    public static String reverseWords(String s) {
+//        //这题其实更简单点 直接split
+//        String[] array = s.split(" ");
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = array.length - 1; i >= 0; i--) {
+//            if ("".equals(array[i])) {
+//                continue;
+//            }
+//            sb.append(array[i].trim());
+//            if (i > 0) {
+//                sb.append(" ");
+//            }
+//        }
+//        while (sb.length() > 0 && sb.charAt(sb.length() - 1) == ' ') {
+//            sb.deleteCharAt(sb.length() - 1);
+//        }
+//        return sb.toString();
+//    }
 
     /**
      * 阶乘后的0
